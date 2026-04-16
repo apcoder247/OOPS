@@ -1,0 +1,98 @@
+import java.util.*;
+
+class CourseFullException extends Exception {
+    public CourseFullException(String msg) {
+        super(msg);
+    }
+}
+
+class Course {
+    private String courseName;
+    private int capacity;
+    private int enrolledStudents = 0;
+
+    Course(String courseName, int capacity) {
+        this.courseName = courseName;
+        this.capacity = capacity;
+    }
+
+    void enrollStudent() throws CourseFullException {
+        if (enrolledStudents >= capacity) {
+            throw new CourseFullException("Course is full");
+        }
+
+        enrolledStudents++;
+        System.out.println("Student enrolled successfully");
+        System.out.println("Total Enrolled: " + enrolledStudents);
+    }
+}
+
+public class CourseCapacityDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter course name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter capacity: ");
+        int cap = sc.nextInt();
+
+        Course c = new Course(name, cap);
+
+        System.out.print("Enter number of students to enroll: ");
+        int n = sc.nextInt();
+
+        try {
+            for (int i = 1; i <= n; i++) {
+                System.out.println("Enrolling student " + i);
+                c.enrollStudent();
+            }
+        } catch (CourseFullException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.*;
+
+class StudentMarks {
+
+    double calculateAverage(int totalMarks, int subjects) {
+        if (subjects == 0) {
+            throw new ArithmeticException("Subjects cannot be zero");
+        }
+
+        return (double) totalMarks / subjects;
+    }
+}
+
+public class MarksValidationDemo {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        StudentMarks s = new StudentMarks();
+
+        System.out.print("Enter total marks: ");
+        int total = sc.nextInt();
+
+        System.out.print("Enter number of subjects: ");
+        int sub = sc.nextInt();
+
+        try {
+            double avg = s.calculateAverage(total, sub);
+            System.out.println("Average: " + avg);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
